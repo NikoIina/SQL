@@ -1,6 +1,4 @@
-Задача: Схема БД интернет-магазина содержит таблицы Company – производители телефонов, 
-Phone – возможные для приобретения телефоны. Составить запрос для поиска количества и общей стоимости телефонов каждого производителя 
-(в момент времени в интернет-магазине может не быть телефонов конкретного производителя).  
+Схема таблицы:
 
 company				phone
 -------				-------
@@ -9,19 +7,15 @@ companyName			phoneModel
 companyCountry			companyId (FK -> company.companyId)
 				price
 
-Решение:
+Решение 1:
 SELECT DISTINCT company.companyName as CompanyName, COUNT(phoneModel) as ModelNumber, SUM(price) as TotalPrice
 FROM phone
 RIGHT OUTER JOIN company
 ON phone.companyId=company.companyId
 GROUP BY company.companyName;
 
-Задача: для схемы данных из Задачи 1, составить запросы для:
-a)	поиска производителя телефона с наибольшей средней стоимостью телефона этого производителя;
-b)	определения количества китайских товаров;
-c)	получения списка самых дорогих моделей телефонов каждого производителя.
 
-Решение:
+Решение 2:
 a)
 SELECT TOP 1 company.companyName as CompanyName, AVG(phone.price) as AVGprice 
 FROM phone
